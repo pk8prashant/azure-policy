@@ -1,0 +1,42 @@
+{
+ "properties": {
+  "policyType": "Custom",
+  "metadata": {
+   "createdBy": "743db73a-bb2d-4ffd-b0a7-22520956f9da",
+   "createdOn": "2021-01-09T06:11:15.1519923Z",
+   "updatedBy": "743db73a-bb2d-4ffd-b0a7-22520956f9da",
+   "updatedOn": "2021-01-21T13:39:05.6096725Z"
+  },
+  "parameters": {
+   "tags": {
+    "type": "String"
+   },
+   "resourceTypes": {
+    "type": "Array"
+   }
+  },
+  "policyDefinitions": [
+   {
+    "policyDefinitionReferenceId": "4037797753452518688",
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ea3f2387-9b95-492a-a190-fcdc54f7b070",
+    "parameters": {
+     "tagName": {
+      "value": "[parameters('tags')]"
+     }
+    }
+   },
+   {
+    "policyDefinitionReferenceId": "12119804518885536315",
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a08ec900-254a-4555-9bf5-e42af04b5c5c",
+    "parameters": {
+     "listOfResourceTypesAllowed": {
+      "value": "[parameters('resourceTypes')]"
+     }
+    }
+   }
+  ]
+ },
+ "id": "/subscriptions/e818bd2d-e44e-4a99-a89c-45be63c6a8ad/providers/Microsoft.Authorization/policySetDefinitions/PolicyInitiativeTest",
+ "type": "Microsoft.Authorization/policySetDefinitions",
+ "name": "PolicyInitiativeTest"
+}
