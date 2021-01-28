@@ -1,0 +1,55 @@
+{
+ "properties": {
+  "displayName": "PolicyInitiativeTest",
+  "policyType": "Custom",
+  "description": "",
+  "metadata": {
+   "createdBy": "743db73a-bb2d-4ffd-b0a7-22520956f9da",
+   "createdOn": "2021-01-09T06:11:15.1519923Z",
+   "updatedBy": "25cc5b4d-2535-42c2-9db0-a0a065f9eda7",
+   "updatedOn": "2021-01-28T07:53:14.642373Z"
+  },
+  "parameters": {
+   "tags": {
+    "type": "String",
+    "metadata": {}
+   },
+   "resourceTypes": {
+    "type": "Array",
+    "metadata": {}
+   }
+  },
+  "policyDefinitions": [
+   {
+    "policyDefinitionReferenceId": "4037797753452518688",
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ea3f2387-9b95-492a-a190-fcdc54f7b070",
+    "parameters": {
+     "tagName": {
+      "value": "[parameters('tags')]"
+     }
+    },
+    "groupNames": []
+   },
+   {
+    "policyDefinitionReferenceId": "12119804518885536315",
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a08ec900-254a-4555-9bf5-e42af04b5c5c",
+    "parameters": {
+     "listOfResourceTypesAllowed": {
+      "value": "[parameters('resourceTypes')]"
+     }
+    },
+    "groupNames": []
+   },
+   {
+    "policyDefinitionReferenceId": "VM_Hybrid_1",
+    "policyDefinitionId": "/subscriptions/e818bd2d-e44e-4a99-a89c-45be63c6a8ad/providers/Microsoft.Authorization/policyDefinitions/18803f6e-bea4-42ec-8d49-ab74b2d5e616",
+    "parameters": {},
+    "groupNames": []
+   }
+  ],
+  "policyDefinitionGroups": []
+ },
+ "id": "/subscriptions/e818bd2d-e44e-4a99-a89c-45be63c6a8ad/providers/Microsoft.Authorization/policySetDefinitions/PolicyInitiativeTest",
+ "type": "Microsoft.Authorization/policySetDefinitions",
+ "name": "PolicyInitiativeTest"
+}
