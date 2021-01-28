@@ -1,0 +1,114 @@
+{
+ "properties": {
+  "displayName": "akeyvault",
+  "policyType": "Custom",
+  "mode": "All",
+  "metadata": {
+   "createdBy": "25cc5b4d-2535-42c2-9db0-a0a065f9eda7",
+   "createdOn": "2020-08-28T06:28:51.8179022Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "parameters": {
+   "storageAccountID": {
+    "type": "String",
+    "metadata": {
+     "displayName": "StorageAccount",
+     "description": "Select the Storage Account workspace from dropdown list"
+    }
+   }
+  },
+  "policyRule": {
+   "if": {
+    "field": "type",
+    "equals": "Microsoft.KeyVault/vaults"
+   },
+   "then": {
+    "effect": "deployIfNotExists",
+    "details": {
+     "type": "Microsoft.Insights/diagnosticSettings",
+     "name": "setByPolicy",
+     "existenceCondition": {
+      "allOf": [
+       {
+        "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+        "equals": "true"
+       },
+       {
+        "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
+        "equals": "true"
+       }
+      ]
+     },
+     "roleDefinitionIds": [
+      "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+     ],
+     "deployment": {
+      "properties": {
+       "mode": "incremental",
+       "template": {
+        "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "1.0.0.0",
+        "parameters": {
+         "resourceName": {
+          "type": "string"
+         },
+         "storageAccountID": {
+          "type": "string"
+         },
+         "location": {
+          "type": "string"
+         }
+        },
+        "resources": [
+         {
+          "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+          "apiVersion": "2017-05-01-preview",
+          "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/keyvaulydiagnosis')]",
+          "location": "[parameters('location')]",
+          "dependsOn": [],
+          "properties": {
+           "storageAccountId": "[parameters('storageAccountID')]",
+           "metrics": [
+            {
+             "category": "AllMetrics",
+             "enabled": true,
+             "retentionPolicy": {
+              "days": 0,
+              "enabled": false
+             },
+             "timeGrain": null
+            }
+           ],
+           "logs": [
+            {
+             "category": "AuditEvent",
+             "enabled": true
+            }
+           ]
+          }
+         }
+        ],
+        "outputs": {}
+       },
+       "parameters": {
+        "storageAccountID": {
+         "value": "[parameters('storageAccountID')]"
+        },
+        "location": {
+         "value": "[field('location')]"
+        },
+        "resourceName": {
+         "value": "[field('name')]"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "id": "/providers/Microsoft.Management/managementGroups/myMGtest/providers/Microsoft.Authorization/policyDefinitions/dce8b57c-2ffd-46b1-b159-020067ca0cb7",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "dce8b57c-2ffd-46b1-b159-020067ca0cb7"
+}

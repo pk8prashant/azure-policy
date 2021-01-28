@@ -1,0 +1,25 @@
+{
+ "sku": {
+  "name": "A0",
+  "tier": "Free"
+ },
+ "properties": {
+  "displayName": "VM ports Deny",
+  "policyDefinitionId": "/subscriptions/e818bd2d-e44e-4a99-a89c-45be63c6a8ad/providers/Microsoft.Authorization/policyDefinitions/7798a65d-6874-4772-99a0-46f4860098d8",
+  "scope": "/subscriptions/e818bd2d-e44e-4a99-a89c-45be63c6a8ad",
+  "notScopes": [],
+  "parameters": {},
+  "metadata": {
+   "assignedBy": "Prashant Kumar",
+   "parameterScopes": {},
+   "createdBy": "25cc5b4d-2535-42c2-9db0-a0a065f9eda7",
+   "createdOn": "2021-01-26T05:57:43.432529Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "enforcementMode": "Default"
+ },
+ "id": "/subscriptions/e818bd2d-e44e-4a99-a89c-45be63c6a8ad/providers/Microsoft.Authorization/policyAssignments/9363181f4e4c4fbc9beeb880",
+ "type": "Microsoft.Authorization/policyAssignments",
+ "name": "9363181f4e4c4fbc9beeb880"
+}

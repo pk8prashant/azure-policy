@@ -1,0 +1,44 @@
+name: manage-azure-policy-f685eff4
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'initiatives/PolicyInitiativeTest_PolicyInitiativeTest/**'
+#      - 'policies/VM_Hybrid_18803f6e-bea4-42ec-8d49-ab74b2d5e616/**'
+#      - 'policies/Laurent_28bee655-2cfa-4d5c-bf5a-067f4db7b24a/**'
+#      - 'policies/rolecheck_36ed12eb-7a3e-4df7-a8c7-50f335cf32a4/**'
+#      - 'policies/VM_ports_Deny_7798a65d-6874-4772-99a0-46f4860098d8/**'
+#      - 'policies/akeyvault_dce8b57c-2ffd-46b1-b159-020067ca0cb7/**'
+#      - 'policies/kyevaultpolicytest_dce8b57c-2ffd-46b1-b159-020067ca03c3/**'
+#      - .github/workflows/manage-azure-policy-f685eff4.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_f685eff4}}
+        allow-no-subscriptions: true
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          initiatives/PolicyInitiativeTest_PolicyInitiativeTest/**
+          policies/VM_Hybrid_18803f6e-bea4-42ec-8d49-ab74b2d5e616/**
+          policies/Laurent_28bee655-2cfa-4d5c-bf5a-067f4db7b24a/**
+          policies/rolecheck_36ed12eb-7a3e-4df7-a8c7-50f335cf32a4/**
+          policies/VM_ports_Deny_7798a65d-6874-4772-99a0-46f4860098d8/**
+          policies/akeyvault_dce8b57c-2ffd-46b1-b159-020067ca0cb7/**
+          policies/kyevaultpolicytest_dce8b57c-2ffd-46b1-b159-020067ca03c3/**

@@ -1,0 +1,132 @@
+{
+ "properties": {
+  "displayName": "VM ports Deny",
+  "policyType": "Custom",
+  "mode": "All",
+  "metadata": {
+   "createdBy": "25cc5b4d-2535-42c2-9db0-a0a065f9eda7",
+   "createdOn": "2021-01-26T05:57:33.8533532Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "parameters": {},
+  "policyRule": {
+   "if": {
+    "anyOf": [
+     {
+      "allOf": [
+       {
+        "field": "type",
+        "equals": "Microsoft.Network/networkSecurityGroups/securityRules"
+       },
+       {
+        "allOf": [
+         {
+          "field": "Microsoft.Network/networkSecurityGroups/securityRules/access",
+          "equals": "Allow"
+         },
+         {
+          "field": "Microsoft.Network/networkSecurityGroups/securityRules/direction",
+          "equals": "Inbound"
+         },
+         {
+          "anyOf": [
+           {
+            "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationPortRange",
+            "equals": "*"
+           },
+           {
+            "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationPortRange",
+            "in": [
+             "3389",
+             "22"
+            ]
+           },
+           {
+            "not": {
+             "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationPortRanges[*]",
+             "notEquals": "*"
+            }
+           },
+           {
+            "not": {
+             "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationPortRanges[*]",
+             "notin": [
+              "3389",
+              "22"
+             ]
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "allOf": [
+       {
+        "field": "type",
+        "equals": "Microsoft.Network/networkSecurityGroups"
+       },
+       {
+        "count": {
+         "field": "Microsoft.Network/networkSecurityGroups/securityRules[*]",
+         "where": {
+          "allOf": [
+           {
+            "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].access",
+            "equals": "Allow"
+           },
+           {
+            "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].direction",
+            "equals": "Inbound"
+           },
+           {
+            "anyOf": [
+             {
+              "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationPortRange",
+              "equals": "*"
+             },
+             {
+              "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationPortRange",
+              "in": [
+               "3389",
+               "22"
+              ]
+             },
+             {
+              "not": {
+               "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationPortRanges[*]",
+               "notEquals": "*"
+              }
+             },
+             {
+              "not": {
+               "field": "Microsoft.Network/networkSecurityGroups/securityRules[*].destinationPortRanges[*]",
+               "notin": [
+                "3389",
+                "22"
+               ]
+              }
+             }
+            ]
+           }
+          ]
+         }
+        },
+        "greater": 0
+       }
+      ]
+     }
+    ]
+   },
+   "then": {
+    "effect": "deny"
+   }
+  }
+ },
+ "id": "/subscriptions/e818bd2d-e44e-4a99-a89c-45be63c6a8ad/providers/Microsoft.Authorization/policyDefinitions/7798a65d-6874-4772-99a0-46f4860098d8",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "7798a65d-6874-4772-99a0-46f4860098d8"
+}

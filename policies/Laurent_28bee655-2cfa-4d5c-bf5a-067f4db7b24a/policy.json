@@ -1,0 +1,87 @@
+{
+ "properties": {
+  "displayName": "Laurent",
+  "policyType": "Custom",
+  "mode": "All",
+  "metadata": {
+   "createdBy": "25cc5b4d-2535-42c2-9db0-a0a065f9eda7",
+   "createdOn": "2020-10-22T04:46:17.5921575Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "parameters": {
+   "TagName": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Tag Name",
+     "description": "Name of Tag to add/replace"
+    }
+   },
+   "TagValue": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Tag Value",
+     "description": "Value of Tag to add/replace"
+    }
+   },
+   "TypeList": {
+    "type": "Array",
+    "metadata": {
+     "displayName": "Resource Types List",
+     "description": "List of azure resource types the tag has to be replaced"
+    }
+   },
+   "effectType": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Policy Effect",
+     "description": "Choose 'Append' or 'Disabled'( to disable the execution of the policy and the Append effect)"
+    },
+    "allowedValues": [
+     "Modify",
+     "Disabled"
+    ]
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "field": "type",
+      "in": "[parameters('TypeList')]"
+     },
+     {
+      "anyof": [
+       {
+        "field": "[concat('tags[', parameters('TagName'), ']')]",
+        "exists": "false"
+       },
+       {
+        "field": "[concat('tags[', parameters('TagName'), ']')]",
+        "notequals": "[parameters('TagValue')]"
+       }
+      ]
+     }
+    ]
+   },
+   "then": {
+    "effect": "[parameters('effectType')]",
+    "details": {
+     "roleDefinitionIds": [
+      "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+     ],
+     "operations": [
+      {
+       "operation": "addOrReplace",
+       "field": "[concat('tags[', parameters('TagName'), ']')]",
+       "value": "[parameters('TagValue')]"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "id": "/subscriptions/e818bd2d-e44e-4a99-a89c-45be63c6a8ad/providers/Microsoft.Authorization/policyDefinitions/28bee655-2cfa-4d5c-bf5a-067f4db7b24a",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "28bee655-2cfa-4d5c-bf5a-067f4db7b24a"
+}

@@ -1,0 +1,68 @@
+{
+ "properties": {
+  "displayName": "rolecheck",
+  "policyType": "Custom",
+  "mode": "All",
+  "metadata": {
+   "createdBy": "25cc5b4d-2535-42c2-9db0-a0a065f9eda7",
+   "createdOn": "2020-12-15T11:50:16.402453Z",
+   "updatedBy": "25cc5b4d-2535-42c2-9db0-a0a065f9eda7",
+   "updatedOn": "2020-12-15T15:05:20.611258Z"
+  },
+  "parameters": {
+   "objectIds": {
+    "type": "Array",
+    "metadata": {
+     "displayName": "Object IDs of Users/Groups",
+     "description": "Principal IDs of the user or group"
+    },
+    "defaultValue": [
+     "hd6ddhh-sshsh-dddkk",
+     "78jjs-pkkkd-7nnnnmo"
+    ]
+   }
+  },
+  "policyRule": {
+   "if": {
+    "anyOf": [
+     {
+      "field": "type",
+      "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+     },
+     {
+      "field": "type",
+      "equals": "Microsoft.Resources/subscriptions"
+     }
+    ]
+   },
+   "then": {
+    "effect": "auditifnotexists",
+    "details": {
+     "type": "Microsoft.Authorization/roleAssignments",
+     "existenceCondition": {
+      "allOf": [
+       {
+        "field": "Microsoft.Authorization/roleAssignments/roleDefinitionId",
+        "in": [
+         "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]",
+         "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '18d7d88d-d35e-4fb5-a5c3-7773c20a72d9')]"
+        ]
+       },
+       {
+        "field": "Microsoft.Authorization/roleAssignments/principalId",
+        "in": "[parameters('objectIds')]"
+       },
+       {
+        "field": "Microsoft.Authorization/roleAssignments/principalType",
+        "equals": "User"
+       }
+      ]
+     }
+    }
+   }
+  }
+ },
+ "id": "/subscriptions/e818bd2d-e44e-4a99-a89c-45be63c6a8ad/providers/Microsoft.Authorization/policyDefinitions/36ed12eb-7a3e-4df7-a8c7-50f335cf32a4",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "36ed12eb-7a3e-4df7-a8c7-50f335cf32a4"
+}
